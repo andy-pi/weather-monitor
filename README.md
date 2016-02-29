@@ -15,13 +15,15 @@ http://raspberrypi.stackexchange.com/questions/169/how-can-i-extend-the-life-of-
 ## Hardware
 Tested on: Rapsberry Pi Model A (original)  
 Adafruit BMP085 temp and pressure sensor
+
 - VCC -> 3.3v
 - GND -> GND
 - SCL -> GPIO 03
 - SDA -> GPIO 02
--
+
 DHT22 temp and humidity sensor
 pin 1 and data connected by 10kohm resistor
+
 - pin 1 -> 3.3v
 - pin 2 -> GPIO 08
 - pin 3 -> NONE
@@ -57,7 +59,7 @@ sudo pip install slacker
 
 Update root crontab with the following lines to run the thingspeak script every 15 mins and slack update daily:
 ``` bash
-0,15,30,45 * * * * /home/pi/humidityapp/thingspeak_update.py # for logging add >> /home/pi/humidityapp/log 2>&1
-55 6 * * * /home/pi/humidityapp/slack_update.py
+0,15,30,45 * * * * /home/pi/weather-monitor/thingspeak_update.py # for logging add >> /home/pi/weather-monitor/log 2>&1
+55 6 * * * /home/pi/weather-monitor/slack_update.py
 ```
 
