@@ -5,9 +5,9 @@ Remove all logging in Raspbian to reduce SD card writes and give logevity
 Add dust sensor module PPD42NS
 
 ## Hardware
-Rapsberry Pi Model A (original)
-Adafruit BMP085 temp and pressure sensor
-DHT22 temp and humidity sensor
+Rapsberry Pi Model A (original)  
+Adafruit BMP085 temp and pressure sensor  
+DHT22 temp and humidity sensor  
 
 ## Installation
 Clone this repo and the BMP085 repo:
