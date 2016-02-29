@@ -31,7 +31,7 @@ class sensor:
                     |
    gpio ------------+
    """
-   
+
    def __init__(self, pi, gpio, LED=None, power=None):
       """
       Instantiate with the Pi and gpio to which the DHT22 output
@@ -76,6 +76,7 @@ class sensor:
       self.temp = -999
 
       self.tov = None
+
       self.high_tick = 0
       self.bit = 40
 
@@ -84,6 +85,7 @@ class sensor:
       pi.set_watchdog(gpio, 0) # Kill any watchdogs.
 
       self.cb = pi.callback(gpio, pigpio.EITHER_EDGE, self._cb)
+
    def _cb(self, gpio, level, tick):
       """
       Accumulate the 40 data bits.  Format into 5 bytes, humidity high,
@@ -119,7 +121,8 @@ class sensor:
                total = self.hH + self.hL + self.tH + self.tL
 
                if (total & 255) == self.CS: # Is checksum ok?
-                 self.rhum = ((self.hH<<8) + self.hL) * 0.1
+
+                  self.rhum = ((self.hH<<8) + self.hL) * 0.1
 
                   if self.tH & 128: # Negative temperature.
                      mult = -0.1
@@ -137,6 +140,7 @@ class sensor:
                else:
 
                   self.bad_CS += 1
+
          elif self.bit >=24: # in temp low byte
             self.tL = (self.tL<<1) + val
 
@@ -153,6 +157,7 @@ class sensor:
             pass
 
          self.bit += 1
+
       elif level == 1:
          self.high_tick = tick
          if diff > 250000:
@@ -199,6 +204,7 @@ class sensor:
          return time.time() - self.tov
       else:
          return -999
+
    def bad_checksum(self):
       """Return count of messages received with bad checksums."""
       return self.bad_CS
@@ -214,6 +220,7 @@ class sensor:
    def sensor_resets(self):
       """Return count of power cycles because of sensor hangs."""
       return self.bad_SR
+
    def trigger(self):
       """Trigger a new relative humidity and temperature reading."""
       if self.powered:
@@ -233,6 +240,7 @@ class sensor:
       if self.cb != None:
          self.cb.cancel()
          self.cb = None
+
 if __name__ == "__main__":
 
    import time
@@ -272,3 +280,4 @@ if __name__ == "__main__":
    s.cancel()
 
    pi.stop()
+
