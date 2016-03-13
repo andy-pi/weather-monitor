@@ -53,7 +53,14 @@ if __name__ == "__main__":
 
 	msgstring = "Good Morning! Here's today's current weather:" + "\nTemp: " + str(temperature) + "C or " + str(tempf)+ "F\nRelative Humidity: " + str(humidity) + "%\nPressure: " + str(hpapressure) + "hPa"	
 	
-	slack.chat.post_message('#weather', msgstring)
+	
+	for tries in range(5):
+		try:
+			slack.chat.post_message('#weather', msgstring)
+			break
+		except requests.exceptions.RequestException as e:
+			print e
+
 	pi.stop()
 	sys.exit()
 
