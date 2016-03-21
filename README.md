@@ -25,7 +25,7 @@ DHT22 temp and humidity sensor
 pin 1 and data connected by 10kohm resistor
 
 - pin 1 -> 3.3v
-- pin 2 -> GPIO 08
+- pin 2 -> GPIO 08 (inside sensor connected to GPIO07)
 - pin 3 -> NONE
 - pin 4 => GND
 
