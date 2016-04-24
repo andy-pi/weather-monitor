@@ -12,8 +12,6 @@
 # add other sensors
 # rpi sd card hardeneing
 
-# to force time udpate: sudo sntp -s 24.56.178.140
-
 # import libraries
 import sys, httplib, urllib, time, Adafruit_BMP.BMP085, DHT22, pigpio, atexit
 BMP085sensor=Adafruit_BMP.BMP085.BMP085()
