@@ -2,8 +2,6 @@
 
 # Title:  ThingSpeak / RaspberryPi Weather station
 # Author: AndyPi
-# Date:   13th December 2015
-# Rev:    0
 
 # Hardware
 # DHT22 (temp / humidity)
@@ -13,6 +11,8 @@
 # Todo:
 # add other sensors
 # rpi sd card hardeneing
+
+# to force time udpate: sudo sntp -s 24.56.178.140
 
 # import libraries
 import sys, httplib, urllib, time, Adafruit_BMP.BMP085, DHT22, pigpio, atexit
@@ -47,14 +47,16 @@ def update_thingspeak(data1, data2, data3, data4):
 if __name__ == "__main__":
 
 	pi = pigpio.pi()
-
+	
 	# Humidity and temp from DHT22 (outisde)
 	s = DHT22.sensor(pi, PIN_DHT22, LED=None, power=8)   
 	s.trigger()
 	time.sleep(0.2)
 	humidity=s.humidity()
 	temp1=s.temperature()
+	pi.stop()
 	
+	pi = pigpio.pi()
 	si = DHT22.sensor(pi, PIN_DHT22i, LED=None, power=8)   
 	si.trigger()
 	time.sleep(0.2)
@@ -72,11 +74,10 @@ if __name__ == "__main__":
 	#airq = 
 
 	update_thingspeak(temperature, humidity, pressure, humidityi)#, airq)
-	print "Temp: " + str(temperature)
+	print "Temp: " + str(temp1)
 	print "Humidity (outide): " + str(humidity)
 	print "Humidity (inside): " + str(humidityi)
 	print "Pressure: " + str(pressure)	
 	
-	pi.stop()
 	sys.exit()
 
