@@ -72,7 +72,7 @@ Update root crontab with the following lines to run the thingspeak script every 
 ``` bash
 @reboot /usr/local/bin/pigpiod
 @reboot sntp -s 24.56.178.140 # to force time update on reboot
-0,15,30,45 * * * * /home/pi/weather-monitor/thingspeak_update.py # for logging add >> /home/pi/weather-monitor/log 2>&1
-55 6 * * * /home/pi/weather-monitor/slack_update.py
+0,15,30,45 * * * * python /home/pi/weather-monitor/thingspeak_update.py # for logging add >> /home/pi/weather-monitor/log 2>&1
+30 6 * * * python /home/pi/weather-monitor/slack_update.py
 ```
 
