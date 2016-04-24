@@ -59,7 +59,7 @@ if __name__ == "__main__":
 	si.trigger()
 	time.sleep(0.2)
 	humidityi=si.humidity()
-
+	
 	# temp and pressure from BMP085
 	temp2=BMP085sensor.read_temperature()
 	pressure = BMP085sensor.read_pressure()

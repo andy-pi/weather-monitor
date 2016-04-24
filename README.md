@@ -34,12 +34,24 @@ You'll need a thingspeak account, and to create a channel with three fields, and
 You'll need a slack account, and to get your API key
 
 ## Installation
-Starting with Raspbian Jessie Lite, clone this repo and the BMP085 repo:
+Starting with Raspbian Jessie Lite, update the system, :
+
+``` bash
+sudo apt-get update
+sudo apt-get install python-dev python-pip git
+``` 
+
+Enable i2c by: sudo raspi-config and Advanced Options > I2C > Enable
+Exit and reboot
+
+Clone this repo and the BMP085 repo:
 ``` bash
 git clone https://github.com/andy-pi/weather-monitor.git
 git clone https://github.com/adafruit/Adafruit_Python_BMP.git
-
+cd Adafruit_Python_BMP
+sudo python setup.py install
 ```
+
 
 Install PIGPIO, a library for low level GPIO operations (this repo includes DHT22.py)
 (http://abyz.co.uk/rpi/pigpio/)
@@ -49,7 +61,6 @@ unzip pigpio.zip
 cd PIGPIO
 make
 sudo make install
-sudo pigpiod
 ```
 
 Install Python Slack Api wrapper:
@@ -59,6 +70,7 @@ sudo pip install slacker
 
 Update root crontab with the following lines to run the thingspeak script every 15 mins and slack update daily:
 ``` bash
+@reboot /usr/local/bin/pigpiod
 0,15,30,45 * * * * /home/pi/weather-monitor/thingspeak_update.py # for logging add >> /home/pi/weather-monitor/log 2>&1
 55 6 * * * /home/pi/weather-monitor/slack_update.py
 ```
