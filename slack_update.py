@@ -2,8 +2,6 @@
 
 # Title:  Slack RaspberryPi Weather station
 # Author: AndyPi
-# Date:   29th Feb 2016
-# Rev:    1
 
 # Hardware
 # DHT22 (temp / humidity)
@@ -14,7 +12,7 @@
 # add other sensors
 
 # import libraries
-import sys, time, Adafruit_BMP.BMP085, DHT22, pigpio, atexit, config
+import sys, time, Adafruit_BMP.BMP085, DHT22, pigpio, config
 BMP085sensor=Adafruit_BMP.BMP085.BMP085()
 from config import *
 from slacker import Slacker
@@ -51,16 +49,14 @@ if __name__ == "__main__":
 	# get reading from air quality sensor
 	#airq = 
 
-	msgstring = "Good Morning! Here's today's current weather:" + "\nTemp: " + str(temperature) + "C or " + str(tempf)+ "F\nRelative Humidity: " + str(humidity) + "%\nPressure: " + str(hpapressure) + "hPa"	
+	msgstring = "Hello! Here's today's current weather:" + "\nTemp: " + str(temperature) + "C or " + str(tempf)+ "F\nRelative Humidity: " + str(humidity) + "%\nPressure: " + str(hpapressure) + "hPa"	
 	
 	
-	for tries in range(5):
+	for tries in range(8):
 		try:
 			slack.chat.post_message('#weather', msgstring)
 			break
 		except requests.exceptions.RequestException as e:
 			print e
 
-	pi.stop()
 	sys.exit()
-

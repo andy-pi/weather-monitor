@@ -75,4 +75,3 @@ Update root crontab with the following lines to run the thingspeak script every 
 0,15,30,45 * * * * python /home/pi/weather-monitor/thingspeak_update.py # for logging add >> /home/pi/weather-monitor/log 2>&1
 30 6 * * * python /home/pi/weather-monitor/slack_update.py
 ```
-
