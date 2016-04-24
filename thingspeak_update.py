@@ -61,6 +61,7 @@ if __name__ == "__main__":
 	si.trigger()
 	time.sleep(0.2)
 	humidityi=si.humidity()
+	pi.stop()
 	
 	# temp and pressure from BMP085
 	temp2=BMP085sensor.read_temperature()
@@ -74,10 +75,10 @@ if __name__ == "__main__":
 	#airq = 
 
 	update_thingspeak(temperature, humidity, pressure, humidityi)#, airq)
-	print "Temp: " + str(temp1)
+	print "Temp (DHT22) " + str(temp1)
+	print "Temp (BMP)" + str(temp2)
 	print "Humidity (outide): " + str(humidity)
 	print "Humidity (inside): " + str(humidityi)
 	print "Pressure: " + str(pressure)	
 	
 	sys.exit()
-
