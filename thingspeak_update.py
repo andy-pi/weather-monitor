@@ -47,23 +47,19 @@ def update_thingspeak(data1, data2, data3, data4):
 if __name__ == "__main__":
 
 	pi = pigpio.pi()
-	pigpio.start()
+
 	# Humidity and temp from DHT22 (outisde)
 	s = DHT22.sensor(pi, PIN_DHT22, LED=None, power=8)   
 	s.trigger()
 	time.sleep(0.2)
 	humidity=s.humidity()
 	temp1=s.temperature()
-	pi.stop()
 	
-	pi = pigpio.pi()
-	pigpio.start()
 	si = DHT22.sensor(pi, PIN_DHT22i, LED=None, power=8)   
 	si.trigger()
 	time.sleep(0.2)
 	humidityi=si.humidity()
-	pi.stop()
-	
+
 	# temp and pressure from BMP085
 	temp2=BMP085sensor.read_temperature()
 	pressure = BMP085sensor.read_pressure()
