@@ -9,8 +9,9 @@ https://github.com/raddevon/pyspeak
 1. After you've got it working you could set the filesystem to read only to save SD card wear
 (https://hallard.me/raspberry-pi-read-only/, or like me just disable swap and log to RAM:
 http://raspberrypi.stackexchange.com/questions/169/how-can-i-extend-the-life-of-my-sd-card)
-2. Set pigpiod to run on reboot
-3. Add dust sensor module PPD42NS
+
+2. Add dust sensor module PPD42NS
+(https://github.com/otonchev/grove_dust)
 
 ## Hardware
 Tested on: Rapsberry Pi Model A (original)  
@@ -42,6 +43,7 @@ sudo apt-get install python-dev python-pip git
 ``` 
 
 Enable i2c by: sudo raspi-config and Advanced Options > I2C > Enable
+And whilst you're in the config program, change your timezone
 Exit and reboot
 
 Clone this repo and the BMP085 repo:
