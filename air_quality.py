@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Original from http://abyz.co.uk/rpi/pigpio/examples.html
 
 import pigpio, math
@@ -112,7 +113,8 @@ class sensor:
         '''
         Convert concentration of PM2.5 particles in µg/ metre cubed to the USA 
         Environment Agency Air Quality Index - AQI
-        https://en.wikipedia.org/wiki/Air_quality_index#Computing_the_AQI
+        https://en.wikipedia.org/wiki/Air_quality_index
+	Computing_the_AQI
         https://github.com/intel-iot-devkit/upm/pull/409/commits/ad31559281bb5522511b26309a1ee73cd1fe208a?diff=split
         '''
         
@@ -122,18 +124,21 @@ class sensor:
                         [55.5, 150.4, 151, 200],\
                         [150.5, 250.4, 201, 300],\
                         [250.5, 350.4, 301, 400],\
-                        [350.5, 500.4, 401, 500] ]
+                        [350.5, 500.4, 401, 500], ]
                         
         C=ugm3
         
-        for breakpoint in cbreakpointspm25:
-            if breakpoint[0] <= C <= breakpoint[1]:
-                Clow = breakpoint[0]
-                Chigh = breakpoint[1]
-                Ilow = breakpoint[2]
-                Ihigh = breakpoint[3]
-            
-        aqi=(((Ihigh-Ilow)/(Chigh-Clow))*(C-Clow))+Ilow
+        if C > 500.4:
+            aqi=500
+
+        else:
+           for breakpoint in cbreakpointspm25:
+               if breakpoint[0] <= C <= breakpoint[1]:
+                   Clow = breakpoint[0]
+                   Chigh = breakpoint[1]
+                   Ilow = breakpoint[2]
+                   Ihigh = breakpoint[3]
+                   aqi=(((Ihigh-Ilow)/(Chigh-Clow))*(C-Clow))+Ilow
         
         return aqi
        
@@ -142,13 +147,12 @@ if __name__ == "__main__":
 
    import time
    import pigpio
-   import PPD42NS
 
-   pi = pigpio.pi() # Connect to Pi.
-
-   s = PPD42NS.sensor(pi, 24) # set the GPIO pin number
 
    while True:
+      pi = pigpio.pi() # Connect to Pi.
+   
+      s = sensor(pi, 7) # set the GPIO pin number
 
       # Use 30s for a properly calibrated reading.
       time.sleep(30) 
@@ -156,14 +160,24 @@ if __name__ == "__main__":
       # get the gpio, ratio and concentration in particles / 0.01 ft3
       g, r, c = s.read()
 
+      if (c==1114000.62):
+          print "Error\n"
+          continue
+
+      print "Air Quality Measurements for PM2.5:"
+      print "  " + str(int(c)) + " particles/0.01ft^3"
+
       # convert to SI units
-      concentration_ugm3=pcs_to_ugm3(c)
+      concentration_ugm3=s.pcs_to_ugm3(c)
+      print "  " + str(int(concentration_ugm3)) + " ugm^3"
       
       # convert SI units to US AQI
       # input should be 24 hour average of ugm3, not instantaneous reading
-      aqi=ugm3_to_aqi(concentration_ugm3)
+      aqi=s.ugm3_to_aqi(concentration_ugm3)
       
-      print "Current Air Quality Index (not 24 hour avg): " + str(aqi)
+      print "  Current AQI (not 24 hour avg): " + str(int(aqi))
+      print ""
 
-   pi.stop() # Disconnect from Pi.
+      pi.stop() # Disconnect from Pi.
 
+      time.sleep(5)
