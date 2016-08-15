@@ -87,7 +87,7 @@ class sensor:
    def pcs_to_ugm3(self, concentration_pcf):
         '''
         Convert concentration of PM2.5 particles per 0.01 cubic feet to µg/ metre cubed
-        this method outlined by xx
+        this method outlined by Drexel University students (2009) and is an approximation
         does not contain correction factors for humidity and rain
         '''
         # Assume all particles are spherical, with a density of 1.65E12 µg/m3
