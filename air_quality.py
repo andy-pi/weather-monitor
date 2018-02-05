@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Original from http://abyz.co.uk/rpi/pigpio/examples.html
 
+from __future__ import print_function
 import pigpio, math
+
 
 class sensor:
    """
@@ -90,6 +92,10 @@ class sensor:
         this method outlined by Drexel University students (2009) and is an approximation
         does not contain correction factors for humidity and rain
         '''
+        
+        if concentration_pcf < 0:
+           raise ValueError('Concentration cannot be a negative number')
+        
         # Assume all particles are spherical, with a density of 1.65E12 µg/m3
         densitypm25 = 1.65 * math.pow(10, 12)
         
@@ -161,22 +167,22 @@ if __name__ == "__main__":
       g, r, c = s.read()
 
       if (c==1114000.62):
-          print "Error\n"
+          print("Error\n")
           continue
 
-      print "Air Quality Measurements for PM2.5:"
-      print "  " + str(int(c)) + " particles/0.01ft^3"
+      print("Air Quality Measurements for PM2.5:")
+      print("  " + str(int(c)) + " particles/0.01ft^3")
 
       # convert to SI units
       concentration_ugm3=s.pcs_to_ugm3(c)
-      print "  " + str(int(concentration_ugm3)) + " ugm^3"
+      print("  " + str(int(concentration_ugm3)) + " ugm^3")
       
       # convert SI units to US AQI
       # input should be 24 hour average of ugm3, not instantaneous reading
       aqi=s.ugm3_to_aqi(concentration_ugm3)
       
-      print "  Current AQI (not 24 hour avg): " + str(int(aqi))
-      print ""
+      print("  Current AQI (not 24 hour avg): " + str(int(aqi)))
+      print("")
 
       pi.stop() # Disconnect from Pi.
 
