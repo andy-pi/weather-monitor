@@ -12,7 +12,6 @@
 # import libraries
 import sys, httplib, urllib, time, Adafruit_BMP.BMP085, DHT22, pigpio, atexit
 from collections import deque
-import numpy
 BMP085sensor=Adafruit_BMP.BMP085.BMP085()
 from config import *
 import air_quality
