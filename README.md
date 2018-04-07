@@ -49,7 +49,7 @@ sudo apt-get update
 sudo apt-get install python-dev python-pip git
 ``` 
 
-2. Enable i2c by: sudo raspi-config and Advanced Options > I2C > Enable
+2. Enable i2c by: sudo raspi-config and Interface Options > I2C > Enable
 And whilst you're in the config program, change your timezone
 Exit and reboot
 
@@ -60,7 +60,6 @@ git clone https://github.com/adafruit/Adafruit_Python_BMP.git
 cd Adafruit_Python_BMP
 sudo python setup.py install
 ```
-
 
 4. Install PIGPIO, a library for low level GPIO operations (this repo includes DHT22.py)
 (http://abyz.co.uk/rpi/pigpio/)

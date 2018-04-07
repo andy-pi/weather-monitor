@@ -89,7 +89,7 @@ if __name__ == "__main__":
 	except IOError as error:
 		q = deque(maxlen=4) # create q if no file exists (first run only)
 	q.append(airq) # Append latest reading to start of queue
-	aqi_1hour_average = numpy.mean(q) # calculate average
+	aqi_1hour_average = sum(q)/len(q) # calculate average
 	with open('aqireadings.q', 'wb') as file:
 		pickle.dump(q, file) # save queue to local file
 
