@@ -42,7 +42,7 @@ You'll need a thingspeak account, and to create a channel with three fields, and
 You'll need a slack account, and to get your API key
 
 ## Installation
-1. Starting with Raspbian Jessie Lite, update the system, :
+1. Starting with Raspbian Jessie Lite, update the system:
 
 ``` bash
 sudo apt-get update

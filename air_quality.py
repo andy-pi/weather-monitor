@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-# Original from http://abyz.co.uk/rpi/pigpio/examples.html
+'''
+Original from http://abyz.co.uk/rpi/pigpio/examples.html
+'''
 
 from __future__ import print_function
-import pigpio, math
-
+import math
+import pigpio
 
 class sensor:
    """
@@ -152,8 +154,6 @@ class sensor:
 if __name__ == "__main__":
 
    import time
-   import pigpio
-
 
    while True:
       pi = pigpio.pi() # Connect to Pi.
