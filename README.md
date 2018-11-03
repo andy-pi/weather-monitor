@@ -69,14 +69,23 @@ make
 sudo make install
 ```
 
-5. Install Python Slack Api wrapper:
+5. Turn on i2c:
+Run ```sudo raspi-config```  
+Use the down arrow to select 5 Interfacing Options  
+Arrow down to P5 I2C  
+Select yes when it asks you to enable I2C  
+Use the right arrow to select the <Finish> button  
+Select yes when it asks to reboot  
+
+
+6. Install Python Slack Api wrapper:
 ```bash
 sudo pip install slacker
 ```
 
-6. Add your API keys to config.py
+7. Add your API keys to config.py
 
-7. Update root crontab with the following lines to run the thingspeak script every 15 mins and slack update daily:
+8. Update root crontab with the following lines to run the thingspeak script every 15 mins and slack update daily:
 ``` bash
 @reboot /usr/local/bin/pigpiod
 @reboot sntp -s 24.56.178.140 # to force time update on reboot
