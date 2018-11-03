@@ -74,7 +74,9 @@ sudo make install
 sudo pip install slacker
 ```
 
-6. Update root crontab with the following lines to run the thingspeak script every 15 mins and slack update daily:
+6. Add your API keys to config.py
+
+7. Update root crontab with the following lines to run the thingspeak script every 15 mins and slack update daily:
 ``` bash
 @reboot /usr/local/bin/pigpiod
 @reboot sntp -s 24.56.178.140 # to force time update on reboot

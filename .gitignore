@@ -4,14 +4,14 @@ __pycache__/
 *$py.class
 
 #config file
-config.py
+myconfig.py
 PIGPIO/
 
 # C extensions
 *.so
 
 # config
-config.py
+#config.py
 
 # Distribution / packaging
 .Python
